@@ -1,0 +1,33 @@
+[23-Nov-2015 05:17:43 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/506726): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[23-Nov-2015 05:17:51 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/506726): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[27-Nov-2015 00:31:52 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/778108): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[28-Nov-2015 02:59:34 UTC] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 524244 bytes) in /home/priv8/public_html/phps/tools/separador.php on line 203
+[01-Dec-2015 15:19:56 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/498407): failed to open stream: HTTP request failed! HTTP/1.1 503 Service Unavailable
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[05-Dec-2015 02:43:23 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/40662): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[05-Dec-2015 02:43:29 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/4066): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[06-Dec-2015 21:38:24 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/40034483424): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[07-Dec-2015 12:18:10 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/554389): failed to open stream: HTTP request failed! HTTP/1.1 503 Service Unavailable
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[07-Dec-2015 12:19:21 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/554389): failed to open stream: HTTP request failed! HTTP/1.1 503 Service Unavailable
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[07-Dec-2015 13:01:01 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/4509950128048315): failed to open stream: HTTP request failed! HTTP/1.1 503 Service Unavailable
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[07-Dec-2015 13:01:32 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/450995): failed to open stream: HTTP request failed! HTTP/1.1 503 Service Unavailable
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[08-Dec-2015 19:15:04 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/444456): failed to open stream: HTTP request failed! HTTP/1.1 503 Service Unavailable
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[09-Dec-2015 02:00:03 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/565765): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[09-Dec-2015 08:17:37 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/4590800292661510|04|2016|557): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[09-Dec-2015 08:17:59 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/4590800): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home/priv8/public_html/phps/tools/bin.php on line 227
+[09-Dec-2015 14:35:59 UTC] PHP Warning:  file_get_contents(http://www.binlist.net/xml/544644): failed to open stream: HTTP request failed! HTTP/1.1 503 Service Unavailable
+ in /home/priv8/public_html/phps/tools/bin.php on line 227

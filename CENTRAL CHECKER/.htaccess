@@ -1,0 +1,18 @@
+RewriteEngine on
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+
+RewriteRule .*\.()$ - [F,NC]
+
+RewriteCond %{HTTP_REFERER} !^http://technologypriv8.com/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://technologypriv8.com$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.technologypriv8.com/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.technologypriv8.com$      [NC]
+RewriteRule .*\.(jpg|jpeg|gif|png|bmp)$ www.google.com [R,NC]
+
+deny from 177.158.245.247
+deny from 186.212.157.73
