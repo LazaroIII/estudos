@@ -1,12 +1,22 @@
-<?php
+<!-- main content start-->
+<div id="page-wrapper">
+    <div class="main-page">
+        <?php
+        $page = $_SERVER['REQUEST_URI'] . '.php';
 
-echo "<br><br><br><br><br><br>";
-echo "<hr>" . print_r($_SERVER['REQUEST_URI'],1) . "</hr>";
+//echo "<br>";
+//echo "<br>";
+//echo "<br>";
+//echo "<hr>";
+//echo __DIR__;
+//echo $page;
+//echo "</hr>";
 
-
-//if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
-//    return false;
-//} else {
-//    die($_SERVER['REQUEST_URI']);
-//}
-
+        if (is_file(__DIR__ . $page)) {
+            require_once $page;
+        } else {
+            require_once 'example_content.php';
+        }
+        ?>
+    </div>
+</div>

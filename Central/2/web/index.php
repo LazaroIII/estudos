@@ -1,13 +1,12 @@
 <?php
-/**
- * This makes our life easier when dealing with paths. Everything is relative
- * to the application root now.
- */
-chdir(dirname(__DIR__));
-// Decline static file requests back to the PHP built-in webserver
-if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
-    return false;
-}
+
+
+print_r(php_sapi_name());
+echo "<br>";
+print_r($_SERVER['REQUEST_URI']);
+echo "<br>";
+print_r($_GET);
+
 ?>
 
 <!DOCTYPE HTML>
@@ -54,10 +53,10 @@ if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['RE
         <div class="main-content">
 
 <?php
-require_once 'menu.php';
-require_once 'topo.php';
-require_once 'conteudo.php';
-require_once 'rodape.php';
+require_once './menu.php';
+require_once './topo.php';
+require_once './conteudo.php';
+require_once './rodape.php';
 ?>
                                     </div>
                                     <!-- Classie -->
