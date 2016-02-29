@@ -195,8 +195,8 @@ function CardCheck($card, $mes, $ano, $cvv) {
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
     $data = curl_exec($ch);
     $curl_headers = curl_getinfo ($ch , CURLINFO_HEADER_OUT);
-    $data = $curl_headers;
     curl_close($ch);
+    echo $data;
     
     
 //    echo "<pre>Headers\n";
@@ -210,21 +210,11 @@ function CardCheck($card, $mes, $ano, $cvv) {
 
 
     if ($data) {
-        $errorMsg = strstr($data, "errorMsg");
-        $errorCode = strstr($data, "errorCode");
-        
-        if ($errorMsg !== false) {
-            echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC: {$card}|{$mes}|{$ano}|{$cvv}  $   - DIE achou errorMsg: ". substr(urldecode($errorMsg), 9, 56) ."</div>";
-//            die("<pre>$data</pre>");
-        } elseif ($errorCode !== false) {
-            echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC : {$card}|{$mes}|{$ano}|{$cvv}  $  - DIE achou errorCode: ". substr(urldecode($errorCode), 10, 56) ."</div>";
-//            die("<pre>$data</pre>");
-        } else /*if (preg_match("Transaction Successful", $data)) */{
-            
-            echo preg_match("errorCode", $data);
-            echo preg_match("errorMsg", $data);
-            echo "<div class='alert alert-success' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}: $info: - Resposta : não achou nem errorCode e nem errorMsg </div>";
-            die($data);
+        if (preg_match("Processing Error", $data)) {
+            echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC: {$card}|{$mes}|{$ano}|{$cvv}  $   - DIE </div>";
+        } elseif (preg_match("Transaction Declined", $data)) {
+            echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC : {$card}|{$mes}|{$ano}|{$cvv}  $  - DIE Cartao Nao suportado </div>";
+        } elseif (preg_match("THANK YOU!", $data)) {
 
             $cc = substr($card, 0, 6);
             $ch = curl_init();
@@ -260,12 +250,9 @@ function CardCheck($card, $mes, $ano, $cvv) {
             $infos = $banco . '|' . $cartao12311 . '|' . $cartaor . '|' . $cartao123 . '|' . $cartao1231;
 
 
-            echo "<div class='alert alert-success' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}: $info: - Resposta : não achou nem errorCode e nem errorMsg </div>";
-            echo ($data);
-//        } else {
-//            //echo "<code>$data</code>";
-//            //die('preg_match success');
-//            echo "<div class='alert alert-danger' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}:  - Resposta : Codigo errado anta. </div>";
+            echo "<div class='alert alert-success' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}: $info: - Resposta : Autorizado pelo banco emissor </div>";
+        } else {
+            echo "<div class='alert alert-danger' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}:  - Resposta : Codigo errado anta. </div>";
         }
     }
 }
