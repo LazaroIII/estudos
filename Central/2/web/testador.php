@@ -62,7 +62,7 @@ if (isset($_POST['CARDLIS'])) {
         }
 
         $setParamFunction = CardCheck($card, $mes, $ano, $cvv);
-        print $setParamFunction;
+        print "$setParamUX - $setParamFunction";
     }
     print "<br> <div style='width: 40%;' class='alert alert-warning'> Testador finalizado!!</div>";
 }

